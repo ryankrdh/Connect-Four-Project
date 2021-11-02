@@ -6,5 +6,9 @@
 gameBoard
 playerOne
 playerTwo
-
+trackPoints
+totalPoints
+win
+lose
+tie
 */
