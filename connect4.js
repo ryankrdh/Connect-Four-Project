@@ -32,18 +32,20 @@ function makeBoard() {
 
 function makeHtmlBoard() {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
-
+  const htmlBoard = document.querySelector('#board');
   // TODO: add comment for this code
-  const top = document.createElement('tr');
-  top.setAttribute('id', 'column-top');
-  top.addEventListener('click', handleClick);
+  const top = document.createElement('tr'); // creates an element on the document and appends it to the variable "top"
+  top.setAttribute('id', 'column-top'); // Setting the variable "top" with an ID of "column-top"
+  top.addEventListener('click', handleClick); // adds a click ability to the variable "top" element.
 
   for (let x = 0; x < WIDTH; x++) {
-    const headCell = document.createElement('td');
-    headCell.setAttribute('id', x);
-    top.append(headCell);
+    // for loop for creating the number of spaces per row depending on the WIDTH.
+    const headCell = document.createElement('td'); // Adds an element to the variable headCell
+    headCell.setAttribute('id', x); // sets the ID of the headCell to x.
+    // **** How does this ID "x" get used ? ****
+    top.append(headCell); // attaching headCell to top creating (WIDTH) amount of "top" elements.
   }
-  htmlBoard.append(top);
+  htmlBoard.append(top); // appending the row of "top" elements to the html.
 
   // TODO: add comment for this code
   for (let y = 0; y < HEIGHT; y++) {
