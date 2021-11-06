@@ -39,7 +39,7 @@ function makeHtmlBoard() {
   top.addEventListener('click', handleClick); // adds a click ability to the variable "top" element.
 
   for (let x = 0; x < WIDTH; x++) {
-    // for loop for creating the number of spaces per row depending on the WIDTH.
+    // for loop for creating the number of spaces per row depending on the WIDTH for the TOP ROW.
     const headCell = document.createElement('td'); // Adds an element to the variable headCell
     headCell.setAttribute('id', x); // sets the ID of the headCell to x.
     // **** How does this ID "x" get used ? ****
@@ -48,14 +48,17 @@ function makeHtmlBoard() {
   htmlBoard.append(top); // appending the row of "top" elements to the html.
 
   // TODO: add comment for this code
+  // The following block creates number of rows depending on WIDTH and columns depending on HEIGHT beneath the TOP row that is clickable.
   for (let y = 0; y < HEIGHT; y++) {
-    const row = document.createElement('tr');
+    // Creates a column depending on HEIGHT.
+    const row = document.createElement('tr'); // attaches a variable row with the element 'tr' to every row for the first column.
     for (let x = 0; x < WIDTH; x++) {
-      const cell = document.createElement('td');
-      cell.setAttribute('id', `${y}-${x}`);
-      row.append(cell);
+      // creates the rows for each section of the column depending on WIDTH
+      const cell = document.createElement('td'); // attaches the element 'td' to variable cell for each section of the row.
+      cell.setAttribute('id', `${y}-${x}`); // Gives each section a unique name depending on the x and y axis.
+      row.append(cell); // appends each named cell with the length of row depending on WIDTH to each section of the column (varialbe name row)
     }
-    htmlBoard.append(row);
+    htmlBoard.append(row); // appends the created table WIDTH X HEIGHT to the html.
   }
 }
 
