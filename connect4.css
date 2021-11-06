@@ -13,10 +13,16 @@
   margin: 5px;
   width: 80%;
   height: 80%;
+  border-radius: 50%; // https://www.freecodecamp.org/news/css-shapes-explained-how-to-draw-a-circle-triangle-and-more-using-pure-css/
 }
 
 /* TODO: make pieces red/blue,  depending on player 1/2 piece */
-
+.piece.player-1 {
+  color: red;
+}
+.piece.player-2 {
+  color: blue;
+}
 /* column-top is table row of clickable areas for each column */
 
 #column-top td {
