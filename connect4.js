@@ -18,7 +18,12 @@ function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array\
   // NOTE: We want the arrays to be made (HEIGHT) amount of times.
   // NOTE: (Length determines the length of the array) We want each array to be (WIDTH) long.
+  // let count = 0;
   for (let x = 0; x < HEIGHT; x++) {
+    // if (count <= WIDTH) {
+    //   board.push(Array.from({ length: WIDTH})); //REF: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from
+    //   count += 1;
+    // }
     board.push(Array.from({ length: WIDTH }));
   }
 }
