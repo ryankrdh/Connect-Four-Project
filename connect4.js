@@ -64,10 +64,29 @@ function makeHtmlBoard() {
 
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
-function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 0
-  return 0;
+// function findSpotForCol(x) {
+//   // TODO: write the real version of this, rather than always returning 0
+  for (let y = HEIGHT - 1; y >= 0; y--) {
+    // We need to start from the bottom
+    if (y === null) {
+      // if the section is empty, return y
+      return y;
+    }
+  }
+  return null; // returns null if the area is full.
 }
+
+// **** SOLUTION TO findSpotForCol ****
+// function findSpotForCol(x) {
+//   for (let y = HEIGHT - 1; y >= 0; y--) {
+//     // loops around each y FROM the bottom.
+//     if (!board[y][x]) {
+//       // if cell y-axix and x-axix does not exist, return y
+//       return y;
+//     }
+//   }
+//   return null;
+// }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
 
@@ -86,6 +105,7 @@ function placeInTable(y, x) {
 
 function endGame(msg) {
   // TODO: pop up alert message
+  alert(msg);
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -115,18 +135,18 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
-  for (let y = 0; y < HEIGHT; y++) {
-    for (let x = 0; 0 < WIDTH; x++) {
-      if (board[y][x] !== null) {
-        return endGame('Both players have tied');
-      }
-    }
-  }
+  // for (let y = 0; y < HEIGHT; y++) {
+  //   for (let x = 0; 0 < WIDTH; x++) {
+  //     if (board[y][x] !== null) {
+  //       return endGame('Both players have tied');
+  //     }
+  //   }
+  // }
 
   // **** solution to check for tie ****
-  // if (board.every(row => row.every(cell => cell))) {
-  //   return endGame('Tie!');
-  // }
+  if (board.every((row) => row.every((cell) => cell))) {
+    return endGame('Tie!');
+  }
 
   // switch players
   // TODO: switch currPlayer 1 <-> 2
