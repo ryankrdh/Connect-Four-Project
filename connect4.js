@@ -117,14 +117,27 @@ function handleClick(evt) {
   // TODO: check if all cells in board are filled; if so call, call endGame
   for (let y = 0; y < HEIGHT; y++) {
     for (let x = 0; 0 < WIDTH; x++) {
-      if (board[y][x] !== ' ') {
+      if (board[y][x] !== null) {
         return endGame('Both players have tied');
       }
     }
   }
 
+  // **** solution to check for tie ****
+  // if (board.every(row => row.every(cell => cell))) {
+  //   return endGame('Tie!');
+  // }
+
   // switch players
   // TODO: switch currPlayer 1 <-> 2
+  if (currPlayer === 1) {
+    currPlayer = 2;
+  } else {
+    currPlayer = 1;
+  }
+
+  // **** solution to switch players. simpler version ****
+  // currPlayer = currPlayer === 1 ? 2 : 1;
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
