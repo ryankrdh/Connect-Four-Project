@@ -19,7 +19,7 @@ function makeBoard() {
   // NOTE: We want the arrays to be made (HEIGHT) amount of times.
   // NOTE: (Length determines the length of the array) We want each array to be (WIDTH) long.
   // let count = 0;
-  for (let y = 0; y < HEIGHT; y++) {
+  for (let x = 0; x < HEIGHT; x++) {
     // if (count <= WIDTH) {
     //   board.push(Array.from({ length: WIDTH})); //REF: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from
     //   count += 1;
@@ -66,27 +66,27 @@ function makeHtmlBoard() {
 
 // function findSpotForCol(x) {
 //   // TODO: write the real version of this, rather than always returning 0
-  for (let y = HEIGHT - 1; y >= 0; y--) {
-    // We need to start from the bottom
-    if (y === null) {
-      // if the section is empty, return y
-      return y;
-    }
-  }
-  return null; // returns null if the area is full.
-}
-
-// **** SOLUTION TO findSpotForCol ****
-// function findSpotForCol(x) {
 //   for (let y = HEIGHT - 1; y >= 0; y--) {
-//     // loops around each y FROM the bottom.
-//     if (!board[y][x]) {
-//       // if cell y-axix and x-axix does not exist, return y
+//     // We need to start from the bottom
+//     if (y === null) {
+//       // if the section is empty, return y
 //       return y;
 //     }
 //   }
-//   return null;
+//   return null; // returns null if the area is full.
 // }
+
+// **** SOLUTION TO findSpotForCol ****
+function findSpotForCol(x) {
+  for (let y = HEIGHT - 1; y >= 0; y--) {
+    // loops around each y FROM the bottom.
+    if (!board[y][x]) {
+      // if cell y-axix and x-axix does not exist, return y
+      return y;
+    }
+  }
+  return null;
+}
 
 /** placeInTable: update DOM to place piece into HTML table of board */
 
