@@ -19,12 +19,12 @@ function makeBoard() {
   // NOTE: We want the arrays to be made (HEIGHT) amount of times.
   // NOTE: (Length determines the length of the array) We want each array to be (WIDTH) long.
   // let count = 0;
-  for (let x = 0; x < HEIGHT; x++) {
+  for (let y = 0; y < HEIGHT; y++) {
     // if (count <= WIDTH) {
     //   board.push(Array.from({ length: WIDTH})); //REF: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from
     //   count += 1;
     // }
-    board.push(Array.from({ length: WIDTH }));
+    board.push(Array.from({ length: WIDTH })); // creates and pushes an array [WIDTH] times for every column determined by [HEIGHT]
   }
 }
 
@@ -73,9 +73,13 @@ function findSpotForCol(x) {
 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
-  const playerPiece = document.createElement('div');
-  playerPiece.classList.add('piece');
-  playerPiece.classList.add(`player-${currPlayer}`);
+  const playerPiece = document.createElement('div'); // creates an element called div and put it in a variable called playerPiece.
+  playerPiece.classList.add('piece'); // adding class called 'piece' to the element with the variable playerPiece
+  playerPiece.classList.add(`player-${currPlayer}`); // adding class called `player-${currPlayer}` to the element with the variable playerPiece
+  // playerPiece.style.top = -50 * (y + 2); // **** what is this for ****
+  const selectedSpace = document.getElementById(`${y}-${x}`); // locates the exact cell in the chart.
+  // **** Why does the document.getElementById not work with querySelector when working with template literls. scoping? ****
+  selectedSpace.append(playerPiece); // player's piece will be appended to the cell area. cell area (y-x) is passed through as parameter from handleClick
 }
 
 /** endGame: announce game end */
@@ -88,25 +92,36 @@ function endGame(msg) {
 
 function handleClick(evt) {
   // get x from ID of clicked cell
-  const x = +evt.target.id;
-
+  const x = +evt.target.id; // this activates the event that is clicked and saves that clicked cell in x.
+  // **** What is the + for? ****
   // get next spot in column (if none, ignore click)
-  const y = findSpotForCol(x);
+  const y = findSpotForCol(x); // takes the ID of the specific cell and saves it to y.
   if (y === null) {
+    // if y is empty, return that spot
     return;
   }
 
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
-  placeInTable(y, x);
+
+  board[y][x] = currPlayer; // attach the active player to the cell area that has been clicked on.
+  placeInTable(y, x); // calls the function with the parameters y-x
 
   // check for win
   if (checkForWin()) {
-    return endGame(`Player ${currPlayer} won!`);
+    // running the function 'checkForWin' if it is true, end the game.
+    return endGame(`Player ${currPlayer} won!`); // returns with the function 'endGame' with a message as a parameter.
   }
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
+  for (let y = 0; y < HEIGHT; y++) {
+    for (let x = 0; 0 < WIDTH; x++) {
+      if (board[y][x] !== ' ') {
+        return endGame('Both players have tied');
+      }
+    }
+  }
 
   // switch players
   // TODO: switch currPlayer 1 <-> 2
@@ -116,43 +131,50 @@ function handleClick(evt) {
 
 function checkForWin() {
   function _win(cells) {
+    // cells parameter is received from the for loop at the bottom
     // Check four cells to see if they're all color of current player
     //  - cells: list of four (y, x) cells
     //  - returns true if all are legal coordinates & all match currPlayer
 
     return cells.every(
+      // .every method returns true if all elements in an array pass a test provided by a function.
       ([y, x]) =>
-        y >= 0 &&
+        y >= 0 && // confirms if the pieces are within 0 to [HEIGHT]
         y < HEIGHT &&
-        x >= 0 &&
+        x >= 0 && // confirms if the pieces are within 0 to [WIDTH]
         x < WIDTH &&
-        board[y][x] === currPlayer
+        board[y][x] === currPlayer // confirms if all four of the pieces that have passed as a parameter is of the same player.
     );
   }
 
   // TODO: read and understand this code. Add comments to help you.
 
+  // This for loop check for any pieces that are 4 in a row and passes that as a parameter to the function '_win'
   for (let y = 0; y < HEIGHT; y++) {
     for (let x = 0; x < WIDTH; x++) {
       const horiz = [
+        // check to see if there are any horizontal matching of four
         [y, x],
         [y, x + 1],
         [y, x + 2],
         [y, x + 3],
       ];
       const vert = [
+        // check to see if there are any vertical matching of four
         [y, x],
         [y + 1, x],
         [y + 2, x],
         [y + 3, x],
       ];
       const diagDR = [
+        // check to see if there are any diagonal UL to LR, matching of four
         [y, x],
         [y + 1, x + 1],
         [y + 2, x + 2],
         [y + 3, x + 3],
       ];
       const diagDL = [
+        // check to see if there are any diagnoal UR to LL, matching of four
         [y, x],
         [y + 1, x - 1],
         [y + 2, x - 2],
@@ -160,7 +182,9 @@ function checkForWin() {
       ];
 
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
-        return true;
+        // run the function '_win' passing the parameter of the four areas in a line where the pieces reside.
+        // if any of the four conditions meet, there is a winner.
+        return true; // the true boolean will end the game.
       }
     }
   }
