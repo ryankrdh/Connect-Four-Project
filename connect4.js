@@ -42,7 +42,6 @@ function makeHtmlBoard() {
     // for loop for creating the number of spaces per row depending on the WIDTH for the TOP ROW.
     const headCell = document.createElement('td'); // Adds an element to the variable headCell
     headCell.setAttribute('id', x); // sets the ID of the headCell to x.
-    // **** How does this ID "x" get used ? ****
     top.append(headCell); // attaching headCell to top creating (WIDTH) amount of "top" elements.
   }
   htmlBoard.append(top); // appending the row of "top" elements to the html.
@@ -68,7 +67,7 @@ function makeHtmlBoard() {
 //   // TODO: write the real version of this, rather than always returning 0
 //   for (let y = HEIGHT - 1; y >= 0; y--) {
 //     // We need to start from the bottom
-//     if (y === null) {
+//     if (board[y][x] === null) {
 //       // if the section is empty, return y
 //       return y;
 //     }
@@ -95,7 +94,6 @@ function placeInTable(y, x) {
   const playerPiece = document.createElement('div'); // creates an element called div and put it in a variable called playerPiece.
   playerPiece.classList.add('piece'); // adding class called 'piece' to the element with the variable playerPiece
   playerPiece.classList.add(`player-${currPlayer}`); // adding class called `player-${currPlayer}` to the element with the variable playerPiece
-  // playerPiece.style.top = -50 * (y + 2); // **** what is this for ****
   const selectedSpace = document.getElementById(`${y}-${x}`); // locates the exact cell in the chart.
   // **** Why does the document.getElementById not work with querySelector when working with template literls. scoping? ****
   selectedSpace.append(playerPiece); // player's piece will be appended to the cell area. cell area (y-x) is passed through as parameter from handleClick
@@ -112,8 +110,7 @@ function endGame(msg) {
 
 function handleClick(evt) {
   // get x from ID of clicked cell
-  const x = +evt.target.id; // this activates the event that is clicked and saves that clicked cell in x.
-  // **** What is the + for? ****
+  const x = +evt.target.id; // this activates the event that is clicked and saves that clicked cell in x. '+' is similar to parseint
   // get next spot in column (if none, ignore click)
   const y = findSpotForCol(x); // takes the ID of the specific cell and saves it to y.
   if (y === null) {
@@ -135,13 +132,7 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
-  // for (let y = 0; y < HEIGHT; y++) {
-  //   for (let x = 0; 0 < WIDTH; x++) {
-  //     if (board[y][x] !== null) {
-  //       return endGame('Both players have tied');
-  //     }
-  //   }
-  // }
+  // 1
 
   // **** solution to check for tie ****
   if (board.every((row) => row.every((cell) => cell))) {
@@ -150,14 +141,14 @@ function handleClick(evt) {
 
   // switch players
   // TODO: switch currPlayer 1 <-> 2
-  if (currPlayer === 1) {
-    currPlayer = 2;
-  } else {
-    currPlayer = 1;
-  }
+  // if (currPlayer === 1) {
+  //   currPlayer = 2;
+  // } else {
+  //   currPlayer = 1;
+  // }
 
   // **** solution to switch players. simpler version ****
-  // currPlayer = currPlayer === 1 ? 2 : 1;
+  currPlayer = currPlayer === 1 ? 2 : 1;
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
